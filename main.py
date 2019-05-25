@@ -15,4 +15,17 @@ def load_graphs():
         f.close()
     return graphs
 
-load_graphs()
+
+def delta(graph):
+    evalues, _ = np.linalg.eigh(graph)
+    return evalues[len(evalues) - 1] - evalues[0]
+
+def s(n, graphs):
+    return max(list(map(delta, graphs[n-2])))
+
+
+
+gr = load_graphs()
+
+for i in range(2, 10):
+    print(s(i,gr))
