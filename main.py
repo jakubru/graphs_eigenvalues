@@ -21,8 +21,7 @@ def s(n, graphs):
     return max(list(map(delta, graphs[n-2])))
 
 def gamma(n, graphs):
-    return list(filter(lambda x: abs(x[1]) < 1.0e-11, enumerate(list(map(lambda x: delta(x) - n, graphs[n - 2])))))
-
+    return list(filter(lambda x: abs(x[1]) < 1.0e-11, enumerate(list(map(lambda x: delta(x) - n, graphs[n - 2])), 1)))
 
 def random_graph(N):
     b = np.random.randint(0, 1 + 20, size=(N, N))
@@ -34,19 +33,21 @@ def random_graph(N):
 
 gr = load_graphs()
 
+print('Wartości funkcji s oraz gamma:')#podpunkt 1
+for i in range(2, 10):
+    s_val = s(i,gr)
+    print('n = ' + str(i) + ': ')
+    print(s_val)
+    print(s_val - i)
 
-#print('Wartości funkcji s oraz gamma:')#podpunkt 1
-#for i in range(2, 10):
-#    s_val = s(i,gr)
-#    print('n = ' + str(i) + ': ')
-#    print(s_val)
-#    print(s_val - i)
-
-#print('Wartości gamma bliskie zeru, oraz numery grafów:')#podpunkt 2
-#for i in range(2, 10):
-#    print(gamma(i, gr))
+print('Wartości gamma bliskie zeru, oraz numery grafów:')#podpunkt 2
+for i in range(2, 10):
+    print(gamma(i, gr))
 
 
-for _ in range(1000):
-    print(delta(random_graph(100)) - 100)
+#list_graph = [random_graph(60) for _ in range(100)]# podpunkt 3
+#list_delta = [delta(graph) - 60 for graph in list_graph]
+#max_ind = np.argmax(list_delta)
+#print(list_delta[max_ind])
+#np.savetxt('graph.out',list_graph[max_ind],fmt='%d')
 
